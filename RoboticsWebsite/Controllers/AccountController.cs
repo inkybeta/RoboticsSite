@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using RoboticsWebsite.Business.Interfaces;
-using RoboticsWebsite.Core;
 using RoboticsWebsite.Core.Models;
 using RoboticsWebsite.Models;
 

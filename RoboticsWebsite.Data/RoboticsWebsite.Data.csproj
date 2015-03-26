@@ -63,7 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
+    <Compile Include="Repositories\CommitRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\201503220527466_Initialize.cs" />
     <Compile Include="Migrations\201503220527466_Initialize.Designer.cs">
       <DependentUpon>201503220527466_Initialize.cs</DependentUpon>
@@ -85,6 +87,8 @@
       <DependentUpon>201503260354301_stringToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\TeamRepository.cs" />
+    <Compile Include="Repositories\TicketRepository.cs" />
     <Compile Include="RoboticsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using RoboticsWebsite.Business.Services;
-using RoboticsWebsite.Core;
 using RoboticsWebsite.Core.Models;
 
 namespace RoboticsWebsite.Controllers

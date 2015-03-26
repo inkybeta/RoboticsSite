@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using RoboticsWebsite.Core;
+﻿using Microsoft.AspNet.Identity;
 using RoboticsWebsite.Core.Models;
 
 namespace RoboticsWebsite.Models

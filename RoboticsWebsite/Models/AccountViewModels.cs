@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using RoboticsWebsite.Core;
 using RoboticsWebsite.Core.Models;
 
 namespace RoboticsWebsite.Models

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using RoboticsWebsite.Core;
+﻿using System;
+using System.Threading.Tasks;
 using RoboticsWebsite.Core.Models;
 using RoboticsWebsite.Data;
 
@@ -26,6 +26,17 @@ namespace RoboticsWebsite.Business.Services
 				return TicketState.Valid;
 			}
 			return TicketState.Invalid;
+		}
+
+		public async Task Generate(string authenticationLevel, User user)
+		{
+			var id = Guid.NewGuid().ToString();
+			await _repository.Add(new Ticket()
+			{
+				Assigner = user,
+				AuthenticationLevel = authenticationLevel,
+				Code = id
+			});
 		}
 
 		public async Task Update(string code, Ticket newTicket)
