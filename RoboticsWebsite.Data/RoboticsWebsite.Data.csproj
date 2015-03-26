@@ -63,6 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201503260545527_AddCommit.cs" />
+    <Compile Include="Migrations\201503260545527_AddCommit.Designer.cs">
+      <DependentUpon>201503260545527_AddCommit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CommitRepository.cs" />
     <Compile Include="Repositories\OrderRepositories.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503260354301_stringToUser.resx">
       <DependentUpon>201503260354301_stringToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503260545527_AddCommit.resx">
+      <DependentUpon>201503260545527_AddCommit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

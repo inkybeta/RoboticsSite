@@ -4,6 +4,7 @@ using RoboticsWebsite.Business.Interfaces;
 using RoboticsWebsite.Business.Services;
 using RoboticsWebsite.Core.Models;
 using RoboticsWebsite.Data;
+using RoboticsWebsite.Data.Repositories;
 
 [assembly: WebActivator.PostApplicationStartMethod(typeof(RoboticsWebsite.App_Start.SimpleInjectorInitializer), "Initialize")]
 
@@ -41,9 +42,10 @@ namespace RoboticsWebsite.App_Start
 	        container.Register<RoboticsContext>(lifestyle);
 
 			// Register the repositories
-			container.Register<IRepository<long, Order>>(container.GetInstance<RoboticsContext>, lifestyle);
-			container.Register<IRepository<string, Team>>(container.GetInstance<RoboticsContext>, lifestyle);
-			container.Register<IRepository<string, Ticket>>(container.GetInstance<RoboticsContext>, lifestyle);
+			container.Register<IRepository<long, Order>>(() => new OrderRepository(container.GetInstance<RoboticsContext>()), lifestyle);
+			container.Register<IRepository<string, Team>>(() => new TeamRepository(container.GetInstance<RoboticsContext>()), lifestyle);
+			container.Register<IRepository<string, Ticket>>(() => new TicketRepository(container.GetInstance<RoboticsContext>()), lifestyle);
+			container.Register<IRepository<long, Commit>>(() => new CommitRepository(container.GetInstance<RoboticsContext>()), lifestyle);
 
 			// Register the user and the manager
 			container.Register(() => new UserStore<User>(container.GetInstance<RoboticsContext>()), lifestyle);
