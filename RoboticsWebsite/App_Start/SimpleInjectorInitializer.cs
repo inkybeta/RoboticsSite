@@ -37,13 +37,23 @@ namespace RoboticsWebsite.App_Start
         private static void InitializeContainer(Container container)
         {
 			var lifestyle = new WebRequestLifestyle(true);
+
+			// Register IdentityDbContext
 	        container.Register<RoboticsContext>(lifestyle);
+
+			// Register the repositories
 			container.Register<IRepository<long, Order>>(container.GetInstance<RoboticsContext>, lifestyle);
 			container.Register<IRepository<string, Team>>(container.GetInstance<RoboticsContext>, lifestyle);
+			container.Register<IRepository<string, Ticket>>(container.GetInstance<RoboticsContext>, lifestyle);
+
+			// Register the user and the manager
 			container.Register(() => new UserStore<User>(container.GetInstance<RoboticsContext>()), lifestyle);
 			container.Register(() => new UserManager<User>(container.GetInstance<UserStore<User>>()), lifestyle);
+
+			// Register the services
 			container.Register<IOrderService>(() => new OrderService(container.GetInstance<IRepository<long, Order>>()), lifestyle);
 			container.Register<ITeamService>(() => new TeamService(container.GetInstance<IRepository<string, Team>>()), lifestyle);
+			container.Register<ITicketService>(() => new TicketService(container.GetInstance<IRepository<string, Ticket>>()), lifestyle);
         }
     }
 }
