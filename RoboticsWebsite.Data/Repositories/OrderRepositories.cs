@@ -11,6 +11,12 @@ namespace RoboticsWebsite.Data.Repositories
 	{
 		private readonly RoboticsContext _context;
 
+		public DbSet<Order> Set
+		{
+			get { return _context.Orders; }
+			set { _context.Orders = value; }
+		}
+
 		public OrderRepository(RoboticsContext context)
 		{
 			_context = context;
@@ -74,11 +80,6 @@ namespace RoboticsWebsite.Data.Repositories
 		public async Task<Order[]> Search(string key, object value)
 		{
 			return await _context.Orders.Where(c => c.GetType().GetProperty(key).GetValue(c, null) == value).ToArrayAsync();
-		}
-
-		public DbSet<Order> Set()
-		{
-			return _context.Orders;
 		}
 
 		public async Task<Order[]> All()

@@ -16,6 +16,6 @@ namespace RoboticsWebsite.Data
 		Task<bool> Contains(TObject Object);
 		Task<bool> Contains(string key, object value);
 		Task<TObject[]> All();
-		DbSet<TObject> Set();
+		DbSet<TObject> Set { get; set; }
 	}
 }

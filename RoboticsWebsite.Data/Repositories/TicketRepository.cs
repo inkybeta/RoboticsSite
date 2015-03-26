@@ -12,24 +12,25 @@ namespace RoboticsWebsite.Data.Repositories
 	{
 		private readonly RoboticsContext _context;
 
+		public DbSet<Ticket> Set
+		{
+			get { return _context.Tickets; }
+			set { _context.Tickets = value; }
+		}
+
 		public TicketRepository(RoboticsContext context)
 		{
 			_context = context;
 		}
 
-		public Task<bool> Contains(string key, object value)
+		public async Task<bool> Contains(string key, object value)
 		{
-			throw new NotImplementedException();
+			return (await _context.Tickets.Where(c => c.GetType().GetProperty(key).GetValue(c, null) == value).ToArrayAsync()).Length != 0;
 		}
 
 		public async Task<Ticket[]> All()
 		{
 			return await _context.Tickets.Where(c => true).ToArrayAsync();
-		}
-
-		public DbSet<Ticket> Set()
-		{
-			return _context.Tickets;
 		}
 
 		public async Task Add(Ticket add)
@@ -38,14 +39,17 @@ namespace RoboticsWebsite.Data.Repositories
 			await _context.SaveChangesAsync();
 		}
 
-		public Task Update(Ticket update)
+		public async Task Update(Ticket update)
 		{
-			throw new System.NotImplementedException();
+			_context.Tickets.Attach(update);
+			_context.Entry(update).State = EntityState.Modified;
+			await _context.SaveChangesAsync();
 		}
 
-		public Task Remove(string remove)
+		public async Task Remove(string remove)
 		{
-			throw new System.NotImplementedException();
+			_context.Tickets.Remove(await Fetch(remove));
+			await _context.SaveChangesAsync();
 		}
 
 		public async Task<bool> Contains(Ticket Object)
@@ -53,24 +57,35 @@ namespace RoboticsWebsite.Data.Repositories
 			return await _context.Tickets.ContainsAsync(Object);
 		}
 
-		public Task<bool> Contains(string key)
+		public async Task<bool> Contains(string key)
 		{
-			throw new System.NotImplementedException();
+			return (await _context.Tickets.Where(c => c.Code == key).ToArrayAsync()).Length != 0;
 		}
 
-		async Task<Ticket> IRepository<string, Ticket>.Fetch(string id)
+		public async Task<Ticket> Fetch(string id)
 		{
 			return await _context.Tickets.FindAsync(id);
 		}
 
-		public Task<Ticket[]> Search(Dictionary<string, object> values)
+		public async Task<Ticket[]> Search(Dictionary<string, object> values)
 		{
-			throw new System.NotImplementedException();
+			IQueryable<Ticket> tracker = null;
+			foreach (var kvp in values)
+			{
+				KeyValuePair<string, object> local = kvp;
+				if (tracker == null)
+				{
+					tracker = _context.Tickets.Where(c => c.GetType().GetProperty(local.Key).GetValue(c, null) == local.Value);
+					continue;
+				}
+				tracker = tracker.Where(c => c.GetType().GetProperty(local.Key).GetValue(c, null) == local.Value);
+			}
+			return await tracker.ToArrayAsync();
 		}
 
-		public Task<Ticket[]> Search(string key, object value)
+		public async Task<Ticket[]> Search(string key, object value)
 		{
-			throw new System.NotImplementedException();
+			return await _context.Tickets.Where(c => c.GetType().GetProperty(key).GetValue(c) == value).ToArrayAsync();
 		}
 	}
 }

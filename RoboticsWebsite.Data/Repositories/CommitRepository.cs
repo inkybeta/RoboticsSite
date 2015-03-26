@@ -12,6 +12,12 @@ namespace RoboticsWebsite.Data.Repositories
 	{
 		private readonly RoboticsContext _context;
 
+		public DbSet<Commit> Set
+		{
+			get { return _context.Commits; }
+			set { _context.Commits = value; }
+		}
+
 		public CommitRepository(RoboticsContext context)
 		{
 			_context = context;
@@ -66,11 +72,6 @@ namespace RoboticsWebsite.Data.Repositories
 		}
 
 		Task<Commit[]> IRepository<long, Commit>.All()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		DbSet<Commit> IRepository<long, Commit>.Set()
 		{
 			throw new System.NotImplementedException();
 		}
